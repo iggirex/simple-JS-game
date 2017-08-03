@@ -24,13 +24,13 @@ heroImage.onload = function(){
 };
 heroImage.src = "images/hero.png";
 
-// Monster image
-var monsterReady = false;
-var monsterImage = new Image();
-monsterImage.onload = function(){
-    monsterReady = true;
+// Mojito image
+var mojitoReady = false;
+var mojitoImage = new Image();
+mojitoImage.onload = function(){
+    mojitoReady = true;
 };
-monsterImage.src = "images/monster.png";
+mojitoImage.src = "images/mojito.png";
 
 // Game objects
 var hero = {
@@ -38,11 +38,11 @@ var hero = {
     x: 0,
     y: 0
 };
-var monster = {
+var mojito = {
     x: 0,
     y: 0
 };
-var monstersCaught = 0;
+var mojitosCaught = 0;
 
 var keysDown = {};
 
@@ -54,14 +54,14 @@ addEventListener("keyup", function(e){
     delete keysDown[e.keyCode];
 }, false);
 
-//Reset the game when the player catches a monster
+//Reset the game when the player catches a mojito
 var reset = function(){
     hero.x = canvas.width/2;
     hero.y = canvas.height/2;
 
-    //Throw the monster somewhere on the screen randomly
-    monster.x = 32 + (Math.random() * (canvas.width - 64));
-    monster.y = 32 + (Math.random() * (canvas.height - 64))
+    //Throw the mojito somewhere on the screen randomly
+    mojito.x = 32 + (Math.random() * (canvas.width - 64));
+    mojito.y = 32 + (Math.random() * (canvas.height - 64))
 }
 
 // Update game objects
@@ -81,12 +81,12 @@ var update = function(modifier){
 
     // Are they touching?
     if (
-        hero.x <= (monster.x + 32)
-        && monster.x <= (hero.x + 32)
-        && hero.y <= (monster.y + 32)
-        && monster.y <= (hero.y + 32)
+        hero.x <= (mojito.x + 32)
+        && mojito.x <= (hero.x + 32)
+        && hero.y <= (mojito.y + 32)
+        && mojito.y <= (hero.y + 32)
     ) {
-        ++monstersCaught;
+        ++mojitosCaught;
         reset()
     }
 }
@@ -100,8 +100,8 @@ var render = function(){
         ctx.drawImage(heroImage, hero.x, hero.y);
     }
 
-    if(monsterReady){
-        ctx.drawImage(monsterImage, monster.x, monster.y);
+    if(mojitoReady){
+        ctx.drawImage(mojitoImage, mojito.x, mojito.y);
     }
 
     // Score
@@ -109,7 +109,7 @@ var render = function(){
     ctx.font = "24px Helvetica";
     ctx.textAlign = "left";
     ctx.textBaseline = "top";
-    ctx.fillText("Monsters caught: " + monstersCaught, 32, 32);
+    ctx.fillText("Mojitos caught: " + mojitosCaught, 32, 32);
 }
 
 // Main game loop
